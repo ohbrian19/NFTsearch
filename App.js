@@ -1,21 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import InNav from "./navigators/InNav";
+import OutNav from "./navigators/OutNav";
+
+const queryClient = new QueryClient();
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+    <NavigationContainer>
+      {isLoggedIn ? <InNav /> : <OutNav />}
+    </NavigationContainer>
+     </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
