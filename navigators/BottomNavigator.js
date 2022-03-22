@@ -4,6 +4,7 @@ import HomeScreen from "../screens/HomeScreen";
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ListingScreen from "../screens/ListScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -75,14 +76,14 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ListScreen"
-        component={HomeScreen}
+        name="FavoriteScreen"
+        component={ListingScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
               color={color}
               size={size}
-              name={focused ? "home" : "home-outline"}
+              name={focused ? "heart" : "heart-outline"}
             />
           ),
         }}

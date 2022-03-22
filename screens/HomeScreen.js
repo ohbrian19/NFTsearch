@@ -42,7 +42,7 @@ const apiKey = "demo";
 
 const HomeScreen = () => {
   const { isLoading, data } = useQuery(
-    ["getNfts", "0xb1f629cb1b6841e5ac98aa5b1cffab1b6c88d8b7"],
+    ["getNfts", "0x8f12c22287c4db0ecd44cd1d12315154806a4c54"],
     getNfts
   );
   const [nft, setNft] = useState(null);
@@ -53,9 +53,19 @@ const HomeScreen = () => {
     if (nft === "") {
       return Alert.alert("Type in a nft address");
     }
-    console.log(data.ownedNfts.length);
+    console.log(data.ownedNfts[0]);
   };
-
+  /*
+  필요한거
+  data.ownedNfts[0,1,2,3]
+  .contract.address (주소)
+  .description (설명)
+  .id.tokenMetadata.tokenType (ERC721)
+  .media[0].gateway (이미지 주소)
+  .image (이미지 주소)
+  .name (이름)
+  
+  */
   return (
     <Container>
       <Title>NFT explorer</Title>
