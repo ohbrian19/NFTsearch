@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 import { useQuery } from "react-query";
 
-import {getNfts} from "../utils/api"
+import { getNfts } from "../utils/api";
 
 const Container = styled.View`
   background-color: white;
@@ -40,18 +40,20 @@ const BtnText = styled.Text`
 
 const apiKey = "demo";
 
-
-const Home = () => {
-  const {isLoading, data} = useQuery(["getNfts", "0xC33881b8FD07d71098b440fA8A3797886D831061"], getNfts );
+const HomeScreen = () => {
+  const { isLoading, data } = useQuery(
+    ["getNfts", "0xb1f629cb1b6841e5ac98aa5b1cffab1b6c88d8b7"],
+    getNfts
+  );
   const [nft, setNft] = useState(null);
   const onChangeText = (text) => {
     setNft(text);
   };
   const onSubmit = () => {
-    // if (nft === "") {
-    //   return Alert.alert("Type in a nft address");
-    // }
-    console.log('1', isLoading)
+    if (nft === "") {
+      return Alert.alert("Type in a nft address");
+    }
+    console.log(data.ownedNfts.length);
   };
 
   return (
@@ -69,4 +71,4 @@ const Home = () => {
     </Container>
   );
 };
-export default Home;
+export default HomeScreen;
