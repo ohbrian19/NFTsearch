@@ -30,7 +30,6 @@ const SubText = styled.Text`
   font-weight: 500;
   color: grey;
 `;
-const BtnContainer = styled.View``;
 const Btn = styled.TouchableOpacity`
   height: 60px;
   margin-horizontal: 20px;
@@ -66,11 +65,9 @@ const StartScreen = ({ navigation }) => {
           <SubText>This is description</SubText>
         </TextContainer>
       </TitleContainer>
-      <BtnContainer>
-        <Btn onPress={() => navigation.navigate("HomeScreen")}>
-          <BtnText>Get Started</BtnText>
-        </Btn>
-      </BtnContainer>
+      <Btn onPress={() => navigation.navigate("HomeScreen")}>
+        <BtnText>Get Started</BtnText>
+      </Btn>
     </Container>
   );
 };

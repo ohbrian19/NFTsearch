@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import BottomNavigator from "./navigators/BottomNavigator";
 
 import HomeScreen from "./screens/HomeScreen";
 import StartScreen from "./screens/StartScreen";
@@ -12,7 +13,6 @@ const queryClient = new QueryClient();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
@@ -25,7 +25,7 @@ export default function App() {
           <Stack.Screen
             options={{ headerShown: false }}
             name="HomeScreen"
-            component={HomeScreen}
+            component={BottomNavigator}
           />
         </Stack.Navigator>
       </NavigationContainer>
