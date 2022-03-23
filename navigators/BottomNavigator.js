@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import HomeScreen from "../screens/HomeScreen";
 import styled from "styled-components/native";
-import { TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import ListingScreen from "../screens/ListScreen";
+
+import HomeScreen from "../screens/HomeScreen";
+import ListScreen from "../screens/ListScreen";
+import FavoriteScreen from "../screens/FavoriteScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,10 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
         const isFocused = state.index === index;
         const TabBarIcon = options.tabBarIcon;
         return (
-          <TabBarContainer onPress={() => navigation.navigate(route.name)}>
+          <TabBarContainer
+            key={index}
+            onPress={() => navigation.navigate(route.name)}
+          >
             <TabBarIcon
               size={30}
               color={isFocused ? "black" : "grey"}
@@ -76,27 +80,27 @@ const BottomNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="ListScreen"
+        component={ListScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Icon
+              color={color}
+              size={size}
+              name={focused ? "book" : "book-outline"}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="FavoriteScreen"
-        component={ListingScreen}
+        component={FavoriteScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
               color={color}
               size={size}
               name={focused ? "heart" : "heart-outline"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="ProfileScreen"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Icon
-              color={color}
-              size={size}
-              name={focused ? "account" : "account-outline"}
             />
           ),
         }}

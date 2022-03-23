@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 
-import { useQuery } from "react-query";
-
-import { getNfts } from "../utils/api";
-
 const Container = styled.View`
   background-color: white;
   flex: 1;
@@ -27,7 +23,7 @@ const TextInput = styled.TextInput`
 const Btn = styled.TouchableOpacity`
   width: 100%;
   margin-top: 30px;
-  background-color: yellow;
+  background-color: green;
   padding: 10px 20px;
   align-items: center;
   border-radius: 20px;
@@ -38,34 +34,19 @@ const BtnText = styled.Text`
   font-weight: 500;
 `;
 
-const apiKey = "demo";
-
-const HomeScreen = () => {
-  const { isLoading, data } = useQuery(
-    ["getNfts", "0x8f12c22287c4db0ecd44cd1d12315154806a4c54"],
-    getNfts
-  );
-  const [nft, setNft] = useState(null);
+const HomeScreen = ({ navigation }) => {
+  const [nftAddress, setNftAddress] = useState(null);
   const onChangeText = (text) => {
-    setNft(text);
+    setNftAddress(text);
   };
   const onSubmit = () => {
-    if (nft === "") {
-      return Alert.alert("Type in a nft address");
+    if (nftAddress === "") {
+      return Alert.alert("Type in a NFT address");
+    } else {
+      navigation.navigate("ListScreen", { nftAddress });
     }
-    console.log(data.ownedNfts[0]);
   };
-  /*
-  필요한거
-  data.ownedNfts[0,1,2,3]
-  .contract.address (주소)
-  .description (설명)
-  .id.tokenMetadata.tokenType (ERC721)
-  .media[0].gateway (이미지 주소)
-  .image (이미지 주소)
-  .name (이름)
-  
-  */
+
   return (
     <Container>
       <Title>NFT explorer</Title>
