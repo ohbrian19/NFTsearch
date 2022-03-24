@@ -33,7 +33,6 @@ const ListScreen = ({ route, navigation }) => {
   }
   const { nftAddress } = route.params;
   const { isLoading, data } = useQuery(["getNfts", nftAddress], getNfts);
-  console.log(data);
   const [cleanData, setCleanData] = useState(null);
 
   if (isLoading) {

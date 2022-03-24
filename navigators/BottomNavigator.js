@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 const TabContainer = styled.View`
   flex-direction: row;
   padding: 20px;
-  background-color: white;
+  background-color: black;
   border-top-width: 0.3px;
   border-color: grey;
   align-items: center;
@@ -29,7 +29,7 @@ const View = styled.View`
   height: 5px;
   width: 30px;
   position: absolute;
-  background-color: black;
+  background-color: white;
   top: -20px;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -49,7 +49,7 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
           >
             <TabBarIcon
               size={30}
-              color={isFocused ? "black" : "grey"}
+              color={isFocused ? "white" : "darkgrey"}
               focused={isFocused}
             />
             {isFocused && <View />}
@@ -70,6 +70,7 @@ const BottomNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
               color={color}
@@ -83,6 +84,7 @@ const BottomNavigator = () => {
         name="ListScreen"
         component={ListScreen}
         options={{
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
               color={color}

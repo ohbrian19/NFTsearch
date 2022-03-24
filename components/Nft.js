@@ -1,24 +1,24 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
-import styled from "styled-components/native";
 
+import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Wrapper = styled(Animated.createAnimatedComponent(View))`
-  padding: 6px;
+  padding: 0.2px;
   border-radius: 10px;
-  background-color: white;
+  background-color: lightgrey;
   height: 200px;
-  box-shadow: 1px 1px 3px lightgrey;
+  box-shadow: 0.3px 0.3px 1px grey;
 `;
 const Image = styled.Image`
-  height: 140px;
+  height: 100%;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 10px;
 `;
 const Favorite = styled(Animated.createAnimatedComponent(TouchableOpacity))`
-  background-color: white;
+  background-color: lightgrey;
   height: 30px;
   width: 30px;
   border-radius: 30px;
@@ -28,13 +28,13 @@ const Favorite = styled(Animated.createAnimatedComponent(TouchableOpacity))`
   right: 12px;
   justify-content: center;
   align-items: center;
-  box-shadow: 1px 1px 2px lightgrey;
+  box-shadow: 0.3px 0.3px 1px darkgrey;
 `;
-const Text = styled.Text`
-  margin-top: 10px;
 
-  padding: 5px;
-`;
+// const Text = styled.Text`
+//   margin-top: 10px;
+//   padding: 5px;
+// `;
 const Nft = ({ index, image, id }) => {
   const [addFavorite, setAddFavorite] = useState(false);
   const navigation = useNavigation();
@@ -67,7 +67,7 @@ const Nft = ({ index, image, id }) => {
         </Favorite>
         <Wrapper style={{ opacity, transform: [{ scale }] }}>
           <Image source={{ uri: image }} />
-          <Text>NFT Name</Text>
+          {/* <Text>NFT Name</Text> */}
         </Wrapper>
       </TouchableOpacity>
     );

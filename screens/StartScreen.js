@@ -37,6 +37,7 @@ const Btn = styled.TouchableOpacity`
   border-radius: 12px;
   justify-content: center;
   align-items: center;
+  box-shadow: 1.95px 1.95px 2px darkgrey;
 `;
 const BtnText = styled.Text`
   color: white;
@@ -60,9 +61,9 @@ const StartScreen = ({ navigation }) => {
         <TitleText>NFT </TitleText>
         <TitleText>Explorer</TitleText>
         <TextContainer>
-          <SubText>This is description</SubText>
-          <SubText>This is description</SubText>
-          <SubText>This is description</SubText>
+          <SubText>This is description.......</SubText>
+          <SubText>This is description.....</SubText>
+          <SubText>This is description...</SubText>
         </TextContainer>
       </TitleContainer>
       <Btn onPress={() => navigation.navigate("HomeScreen")}>

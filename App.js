@@ -1,13 +1,10 @@
+import React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import BottomNavigator from "./navigators/BottomNavigator";
 
-import HomeScreen from "./screens/HomeScreen";
+import BottomNavigator from "./navigators/BottomNavigator";
 import StartScreen from "./screens/StartScreen";
-// import InNav from "./navigators/InNav";
-// import OutNav from "./navigators/OutNav";
 
 const queryClient = new QueryClient();
 const Stack = createNativeStackNavigator();

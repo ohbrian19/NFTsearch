@@ -1,64 +1,107 @@
 import React, { useState } from "react";
+import { Alert, View } from "react-native";
+import { useQuery } from "react-query";
 import styled from "styled-components/native";
+import Nft from "../components/Nft";
+import { getNfts } from "../utils/api";
 
 const Container = styled.View`
-  background-color: white;
+  background-color: black;
   flex: 1;
-  padding: 0px 16px;
+  padding: 60px 8px 45px;
 `;
-const Title = styled.Text`
-  color: black;
-  text-align: center;
-  margin: 30px 0px;
-  font-size: 20px;
-  font-weight: 700;
+const TextInputContainer = styled.View`
+  flex-direction: row;
+  box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.15);
 `;
 const TextInput = styled.TextInput`
   background-color: grey;
-  border-radius: 18px;
-  padding: 10px 20px;
-  font-size: 18px;
-  box-shadow: 1px 1px 3px rgba(41, 30, 95, 0.2);
+  width: 80%
+  padding: 8px 20px;
+  font-size: 15px;
+  border-radius: 7px;
+  box-shadow: 0.1px 0.1px 1px darkgrey;
 `;
 const Btn = styled.TouchableOpacity`
-  width: 100%;
-  margin-top: 30px;
-  background-color: green;
-  padding: 10px 20px;
+  background-color: black;
+  width: 19%
+  margin-left: 1%
+  padding: 8px 20px;
+  border-radius: 7px;
+  box-shadow: 0.1px 0.1px 1px darkgrey;
   align-items: center;
-  border-radius: 20px;
+  justify-content: center;
 `;
 const BtnText = styled.Text`
   color: white;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 14px;
+`;
+const Divider = styled.View`
+  border-top-width: 0.3px;
+  border-color: grey;
+  margin-top: 12px;
+`;
+const ListContainer = styled.View``;
+const List = styled.FlatList`
+  padding: 12px 0px;
 `;
 
+// "0x8f12c22287c4db0ecd44cd1d12315154806a4c54"
 const HomeScreen = ({ navigation }) => {
   const [nftAddress, setNftAddress] = useState(null);
-  const onChangeText = (text) => {
-    setNftAddress(text);
-  };
+  const [nftData, setNftData] = useState(null);
+  const { status, data, error, refetch } = useQuery(
+    ["getNfts", nftAddress],
+    getNfts,
+    {
+      enabled: false,
+    }
+  );
+
+  const onChangeText = (text) => setNftAddress(text);
   const onSubmit = () => {
-    if (nftAddress === "") {
+    if (nftAddress === null) {
       return Alert.alert("Type in a NFT address");
     } else {
-      navigation.navigate("ListScreen", { nftAddress });
+      refetch(setNftData(data));
+      // navigation.navigate("ListScreen", { nftAddress });
     }
   };
 
   return (
     <Container>
-      <Title>NFT explorer</Title>
-      <TextInput
-        returnKeyType="search"
-        onChangeText={onChangeText}
-        placeholder="Find nft"
-        placeholderTextColor="lightgrey"
-      />
-      <Btn onPress={onSubmit}>
-        <BtnText>Save</BtnText>
-      </Btn>
+      <TextInputContainer>
+        <TextInput
+          returnKeyType="search"
+          onChangeText={onChangeText}
+          placeholder="Type in a valid NFT address..."
+          placeholderTextColor="lightgrey"
+        />
+        <Btn onPress={onSubmit}>
+          <BtnText>Find</BtnText>
+        </Btn>
+      </TextInputContainer>
+      <Divider />
+      {nftData && (
+        <ListContainer>
+          <List
+            data={nftData.ownedNfts}
+            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: "space-between",
+            }}
+            keyExtractor={(item) => item.id.tokenId}
+            renderItem={({ item, index }) => (
+              <Nft
+                index={index}
+                id={item.tokenId}
+                image={item.media[0].gateway}
+              />
+            )}
+          />
+        </ListContainer>
+      )}
     </Container>
   );
 };
