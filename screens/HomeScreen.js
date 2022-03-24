@@ -50,7 +50,7 @@ const List = styled.FlatList`
 const HomeScreen = ({ navigation }) => {
   const [nftAddress, setNftAddress] = useState(null);
   const [nftData, setNftData] = useState(null);
-  const { status, data, error, refetch } = useQuery(
+  const { isLoading, data, refetch } = useQuery(
     ["getNfts", nftAddress],
     getNfts,
     {
@@ -64,10 +64,8 @@ const HomeScreen = ({ navigation }) => {
       return Alert.alert("Type in a NFT address");
     } else {
       refetch(setNftData(data));
-      // navigation.navigate("ListScreen", { nftAddress });
     }
   };
-
   return (
     <Container>
       <TextInputContainer>
@@ -91,14 +89,8 @@ const HomeScreen = ({ navigation }) => {
             columnWrapperStyle={{
               justifyContent: "space-between",
             }}
-            keyExtractor={(item) => item.id.tokenId}
-            renderItem={({ item, index }) => (
-              <Nft
-                index={index}
-                id={item.tokenId}
-                image={item.media[0].gateway}
-              />
-            )}
+            keyExtractor={(item) => item.media[0].gateway}
+            renderItem={({ item, index }) => <Nft index={index} data={item} />}
           />
         </ListContainer>
       )}

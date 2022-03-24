@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import HomeScreen from "../screens/HomeScreen";
-import ListScreen from "../screens/ListScreen";
 import FavoriteScreen from "../screens/FavoriteScreen";
 
 const Tab = createBottomTabNavigator();
@@ -63,33 +62,18 @@ const MyTabBar = ({ state, descriptors, navigation }) => {
 const BottomNavigator = () => {
   return (
     <Tab.Navigator
-      options={{ headerShown: false }}
+      screenOptions={{ headerShown: false }}
       tabBar={(props) => <MyTabBar {...props} />}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
               color={color}
               size={size}
               name={focused ? "home" : "home-outline"}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="ListScreen"
-        component={ListScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => (
-            <Icon
-              color={color}
-              size={size}
-              name={focused ? "book" : "book-outline"}
             />
           ),
         }}

@@ -31,11 +31,7 @@ const Favorite = styled(Animated.createAnimatedComponent(TouchableOpacity))`
   box-shadow: 0.3px 0.3px 1px darkgrey;
 `;
 
-// const Text = styled.Text`
-//   margin-top: 10px;
-//   padding: 5px;
-// `;
-const Nft = ({ index, image, id }) => {
+const Nft = ({ index, data }) => {
   const [addFavorite, setAddFavorite] = useState(false);
   const navigation = useNavigation();
   const opacity = useRef(new Animated.Value(0)).current;
@@ -53,21 +49,29 @@ const Nft = ({ index, image, id }) => {
   const clickFavorite = () => {
     setAddFavorite((prev) => !prev);
   };
-  if (image) {
+  if (data.media[0].gateway) {
     return (
       <TouchableOpacity
         style={{ flex: 0.48 }}
-        onPress={() => console.log("pressed")}
+        onPress={() =>
+          navigation.navigate("DetailScreen", {
+            data,
+            addFavorite,
+          })
+        }
       >
         <Favorite
           style={{ opacity, transform: [{ scale }] }}
           onPress={clickFavorite}
         >
-          <Icon name="heart" size={20} color={addFavorite ? "red" : "black"} />
+          <Icon
+            name={addFavorite ? "heart" : "heart-outline"}
+            size={20}
+            color={addFavorite ? "red" : "black"}
+          />
         </Favorite>
         <Wrapper style={{ opacity, transform: [{ scale }] }}>
-          <Image source={{ uri: image }} />
-          {/* <Text>NFT Name</Text> */}
+          <Image source={{ uri: data.media[0].gateway }} />
         </Wrapper>
       </TouchableOpacity>
     );
