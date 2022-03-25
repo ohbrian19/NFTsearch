@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Text } from "react-native";
+import { useDB } from "../context";
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -45,6 +46,7 @@ const Title = styled.Text`
 const Description = styled.Text`
   color: white;
   line-height: 22px;
+  font-size: 14px;
   margin-bottom: 20px;
 `;
 const ButtonContainer = styled.View`
@@ -64,7 +66,7 @@ const LikeButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 `;
-const FavoriteButton = styled.View`
+const FavoriteButton = styled.TouchableOpacity`
   height: 50px;
   flex: 1;
   justify-content: center;
@@ -83,6 +85,18 @@ const DetailScreen = ({
     params: { data, addFavorite },
   },
 }) => {
+  const realm = useDB();
+  const onPress = () => {
+    realm.write(() => {
+      realm.create("Favorite", {
+        _id: Date.now(),
+        name: data.title,
+        image: data.media[0].gateway,
+        description: data.description,
+      });
+    });
+    // navigation.goBack();
+  };
   return (
     <Container>
       <Header>
@@ -111,15 +125,17 @@ const DetailScreen = ({
         <Description>{data.description}</Description>
       </TitleContainer>
       <ButtonContainer>
-        <LikeButton>
+        <LikeButton onPress={onPress}>
           <Icon
             name={addFavorite ? "heart" : "heart-outline"}
             size={28}
             color={addFavorite ? "red" : "grey"}
           />
         </LikeButton>
-        <FavoriteButton>
-          <Text style={{ color: "white" }}>Add To Cart</Text>
+        <FavoriteButton onPress={onPress}>
+          <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
+            Add To Favorite
+          </Text>
         </FavoriteButton>
       </ButtonContainer>
     </Container>
