@@ -7,6 +7,7 @@ const Container = styled.SafeAreaView`
   background-color: black;
   flex: 1;
 `;
+const Title = styled.View``;
 const FavoriteScreen = () => {
   const realm = useDB();
   const [favorites, setFavorites] = useState([]);
@@ -21,7 +22,13 @@ const FavoriteScreen = () => {
       favorites.removeAllListeners();
     };
   }, []);
+  const deleteFavorite = () => {};
 
-  return <Container></Container>;
+  return (
+    <Container>
+      <Title></Title>
+      <FlatList>{/* List */}</FlatList>
+    </Container>
+  );
 };
 export default FavoriteScreen;
