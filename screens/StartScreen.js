@@ -11,6 +11,8 @@ const ImageContainer = styled.View`
 `;
 const Image = styled.Image`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `;
 const TitleContainer = styled.View`
   padding-horizontal: 20px;
@@ -61,9 +63,9 @@ const StartScreen = ({ navigation }) => {
         <TitleText>NFT </TitleText>
         <TitleText>Explorer</TitleText>
         <TextContainer>
-          <SubText>This is description.......</SubText>
-          <SubText>This is description.....</SubText>
-          <SubText>This is description...</SubText>
+          <SubText>Keep track of your NFTs</SubText>
+          <SubText>Search for any NFTs.</SubText>
+          <SubText>Supports ERC721 & ERC1155</SubText>
         </TextContainer>
       </TitleContainer>
       <Btn onPress={() => navigation.navigate("HomeScreen")}>

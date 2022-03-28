@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components/native";
 import Nft from "../components/Nft";
 import { getNfts } from "../utils/api";
+import LottieView from "lottie-react-native";
 
 const Container = styled.View`
   background-color: black;
@@ -45,18 +46,16 @@ const ListContainer = styled.View``;
 const List = styled.FlatList`
   padding: 12px 0px;
 `;
+const AnimationContainer = styled.View`
+  flex: 1;
+`;
 
-// "0x8f12c22287c4db0ecd44cd1d12315154806a4c54"
 const HomeScreen = ({ navigation }) => {
   const [nftAddress, setNftAddress] = useState(null);
   const [nftData, setNftData] = useState(null);
-  const { isLoading, data, refetch } = useQuery(
-    ["getNfts", nftAddress],
-    getNfts,
-    {
-      enabled: false,
-    }
-  );
+  const { data, refetch } = useQuery(["getNfts", nftAddress], getNfts, {
+    enabled: false,
+  });
 
   const onChangeText = (text) => setNftAddress(text);
   const onSubmit = () => {
@@ -80,7 +79,7 @@ const HomeScreen = ({ navigation }) => {
         </Btn>
       </TextInputContainer>
       <Divider />
-      {nftData && (
+      {nftData ? (
         <ListContainer>
           <List
             data={nftData.ownedNfts}
@@ -93,6 +92,14 @@ const HomeScreen = ({ navigation }) => {
             renderItem={({ item, index }) => <Nft index={index} data={item} />}
           />
         </ListContainer>
+      ) : (
+        <AnimationContainer>
+          <LottieView
+            source={require("../assets/animation.json")}
+            autoPlay
+            loop
+          />
+        </AnimationContainer>
       )}
     </Container>
   );

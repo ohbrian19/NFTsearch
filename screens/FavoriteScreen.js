@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, LayoutAnimation } from "react-native";
+import { LayoutAnimation } from "react-native";
 import Swiper from "react-native-swiper";
 import styled from "styled-components/native";
 import Favorite from "../components/Favorite";
@@ -28,7 +28,6 @@ const FavoriteScreen = () => {
     favorites.addListener((favorites, changes) => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       setFavorites(favorites.sorted("_id", true));
-      console.log(favorites);
     });
     return () => {
       favorites.removeAllListeners();
@@ -40,7 +39,7 @@ const FavoriteScreen = () => {
       <Title>Favorites</Title>
       <Swiper showsPagination={false} containerStyle={{ width: "100%" }}>
         {favorites?.map((favorite) => (
-          <Favorite favorite={favorite} />
+          <Favorite key={favorite._id} favorite={favorite} />
         ))}
       </Swiper>
     </Container>

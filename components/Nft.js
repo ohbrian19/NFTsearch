@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, TouchableOpacity, View } from "react-native";
 
 import styled from "styled-components/native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Wrapper = styled(Animated.createAnimatedComponent(View))`
   padding: 0.2px;
