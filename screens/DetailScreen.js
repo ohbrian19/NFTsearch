@@ -99,6 +99,7 @@ const DetailScreen = ({
           description: data.description,
         });
       });
+      navigation.goBack();
     }
     clickFavorite();
   };
