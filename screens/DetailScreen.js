@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Text } from "react-native";
@@ -82,20 +82,28 @@ const FavoriteButton = styled.TouchableOpacity`
 const DetailScreen = ({
   navigation,
   route: {
-    params: { data, addFavorite },
+    params: { data },
   },
 }) => {
+  const [addFavorite, setAddFavorite] = useState(false);
   const realm = useDB();
   const onPress = () => {
-    realm.write(() => {
-      realm.create("Favorite", {
-        _id: Date.now(),
-        name: data.title,
-        image: data.media[0].gateway,
-        description: data.description,
+    if (addFavorite) {
+      // delete
+    } else {
+      realm.write(() => {
+        realm.create("Favorite", {
+          _id: Date.now(),
+          name: data.title,
+          image: data.media[0].gateway,
+          description: data.description,
+        });
       });
-    });
-    // navigation.goBack();
+    }
+    clickFavorite();
+  };
+  const clickFavorite = () => {
+    setAddFavorite((prev) => !prev);
   };
   return (
     <Container>

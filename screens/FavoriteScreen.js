@@ -1,19 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutAnimation } from "react-native";
 import styled from "styled-components/native";
 import { useDB } from "../context";
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   background-color: black;
   flex: 1;
+  padding: 60px 10px 45px;
 `;
-const Title = styled.View``;
+const Title = styled.Text`
+  color: lightgrey;
+  font-size: 22px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+`;
+
 const FavoriteScreen = () => {
   const realm = useDB();
   const [favorites, setFavorites] = useState([]);
+
   useEffect(() => {
     const favorites = realm.objects("Favorite");
-    console.log(favorites);
     favorites.addListener((favorites, changes) => {
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
       setFavorites(favorites.sorted("_id", true));
@@ -22,13 +31,19 @@ const FavoriteScreen = () => {
       favorites.removeAllListeners();
     };
   }, []);
-  const deleteFavorite = () => {};
+
+  const deleteFavorite = (id) => {
+    realm.write(() => {
+      const favorite = realm.objectForPrimaryKey("Favorite", id);
+      realm.delete(favorite);
+    });
+  };
 
   return (
     <Container>
-      <Title></Title>
-      <FlatList>{/* List */}</FlatList>
+      <Title>Favorites</Title>
     </Container>
   );
 };
+
 export default FavoriteScreen;
