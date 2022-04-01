@@ -12,7 +12,7 @@
 
 ## Features
 <div align="center">
-  <img src="./documentation/nft-start.gif"  width="200" height="400"/>\
+  <img src="./documentation/nft-start.gif"  width="200" height="400"/>
   <img src="./documentation/nft-search.gif" width="200" height="400"/>
   <img src="./documentation/nft-favorites.gif" width="200" height="400"/> 
 </div>
